@@ -3,18 +3,17 @@ authors = ["Richard Diamond <wichard@vitalitystudios.com>", "Kornel Lesiński <
 build = "build.rs"
 description = "Rust bindings to libvpx"
 homepage = "https://github.com/pornel/rust-vpx/tree/master/src/sys"
+documentation = "https://pornel.github.io/rust-vpx/vpx_sys/"
 license = "MPL-2.0"
 links = "vpx"
 name = "libvpx-native-sys"
 repository = "https://github.com/pornel/rust-vpx"
-version = "3.0.3"
+version = "3.0.4"
+categories = [ "multimedia::video", "multimedia::encoding", "api-bindings" ]
 
 [build-dependencies]
-bindgen = "0.22.1"
+bindgen = "0.25.3"
 pkg-config = "0.3.5"
-
-[dependencies]
-libc = "0.2.20"
 
 [lib]
 name = "vpx_sys"
