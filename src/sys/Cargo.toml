@@ -21,7 +21,7 @@ version = "0.25.5"
 
 
 [features]
-default = ["generate"]
+default = []
 generate = ["bindgen"]
 
 [lib]
