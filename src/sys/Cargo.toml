@@ -12,8 +12,17 @@ repository = "https://github.com/pornel/rust-vpx"
 version = "4.0.0"
 
 [build-dependencies]
-bindgen = "0.25.3"
 pkg-config = "0.3.5"
+semver-parser = "0.7.0"
+
+[build-dependencies.bindgen]
+optional = true
+version = "0.25.5"
+
+
+[features]
+default = ["generate"]
+generate = ["bindgen"]
 
 [lib]
 name = "vpx_sys"
