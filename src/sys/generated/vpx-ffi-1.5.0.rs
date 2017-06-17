@@ -25,7 +25,7 @@ impl <T> ::std::fmt::Debug for __BindgenUnionField<T> {
     }
 }
 
-pub const VPX_IMAGE_ABI_VERSION: ::std::os::raw::c_uint = 4;
+pub const VPX_IMAGE_ABI_VERSION: ::std::os::raw::c_uint = 3;
 pub const VPX_IMG_FMT_PLANAR: ::std::os::raw::c_uint = 256;
 pub const VPX_IMG_FMT_UV_FLIP: ::std::os::raw::c_uint = 512;
 pub const VPX_IMG_FMT_HAS_ALPHA: ::std::os::raw::c_uint = 1024;
@@ -35,7 +35,7 @@ pub const VPX_PLANE_Y: ::std::os::raw::c_uint = 0;
 pub const VPX_PLANE_U: ::std::os::raw::c_uint = 1;
 pub const VPX_PLANE_V: ::std::os::raw::c_uint = 2;
 pub const VPX_PLANE_ALPHA: ::std::os::raw::c_uint = 3;
-pub const VPX_CODEC_ABI_VERSION: ::std::os::raw::c_uint = 7;
+pub const VPX_CODEC_ABI_VERSION: ::std::os::raw::c_uint = 6;
 pub const VPX_CODEC_CAP_DECODER: ::std::os::raw::c_uint = 1;
 pub const VPX_CODEC_CAP_ENCODER: ::std::os::raw::c_uint = 2;
 pub const VPX_TS_MAX_PERIODICITY: ::std::os::raw::c_uint = 16;
@@ -45,7 +45,7 @@ pub const VPX_MAX_LAYERS: ::std::os::raw::c_uint = 12;
 pub const MAX_LAYERS: ::std::os::raw::c_uint = 12;
 pub const VPX_SS_MAX_LAYERS: ::std::os::raw::c_uint = 5;
 pub const VPX_SS_DEFAULT_LAYERS: ::std::os::raw::c_uint = 1;
-pub const VPX_ENCODER_ABI_VERSION: ::std::os::raw::c_uint = 12;
+pub const VPX_ENCODER_ABI_VERSION: ::std::os::raw::c_uint = 11;
 pub const VPX_CODEC_CAP_PSNR: ::std::os::raw::c_uint = 65536;
 pub const VPX_CODEC_CAP_OUTPUT_PARTITION: ::std::os::raw::c_uint = 131072;
 pub const VPX_CODEC_CAP_HIGHBITDEPTH: ::std::os::raw::c_uint = 262144;
@@ -73,7 +73,7 @@ pub const VP8_EFLAG_FORCE_ARF: ::std::os::raw::c_uint = 16777216;
 pub const VP8_EFLAG_NO_UPD_ENTROPY: ::std::os::raw::c_uint = 1048576;
 pub const VPX_MAXIMUM_WORK_BUFFERS: ::std::os::raw::c_uint = 8;
 pub const VP9_MAXIMUM_REF_BUFFERS: ::std::os::raw::c_uint = 8;
-pub const VPX_DECODER_ABI_VERSION: ::std::os::raw::c_uint = 10;
+pub const VPX_DECODER_ABI_VERSION: ::std::os::raw::c_uint = 9;
 pub const VPX_CODEC_CAP_PUT_SLICE: ::std::os::raw::c_uint = 65536;
 pub const VPX_CODEC_CAP_PUT_FRAME: ::std::os::raw::c_uint = 131072;
 pub const VPX_CODEC_CAP_POSTPROC: ::std::os::raw::c_uint = 262144;
@@ -1239,12 +1239,11 @@ pub struct vpx_svc_parameters {
     pub min_quantizers: [::std::os::raw::c_int; 12usize],
     pub scaling_factor_num: [::std::os::raw::c_int; 12usize],
     pub scaling_factor_den: [::std::os::raw::c_int; 12usize],
-    pub speed_per_layer: [::std::os::raw::c_int; 12usize],
     pub temporal_layering_mode: ::std::os::raw::c_int,
 }
 #[test]
 fn bindgen_test_layout_vpx_svc_parameters() {
-    assert_eq!(::std::mem::size_of::<vpx_svc_parameters>() , 244usize , concat
+    assert_eq!(::std::mem::size_of::<vpx_svc_parameters>() , 196usize , concat
                ! ( "Size of: " , stringify ! ( vpx_svc_parameters ) ));
     assert_eq! (::std::mem::align_of::<vpx_svc_parameters>() , 4usize , concat
                 ! ( "Alignment of " , stringify ! ( vpx_svc_parameters ) ));
@@ -1271,13 +1270,8 @@ fn bindgen_test_layout_vpx_svc_parameters() {
                 "Alignment of field: " , stringify ! ( vpx_svc_parameters ) ,
                 "::" , stringify ! ( scaling_factor_den ) ));
     assert_eq! (unsafe {
-                & ( * ( 0 as * const vpx_svc_parameters ) ) . speed_per_layer
-                as * const _ as usize } , 192usize , concat ! (
-                "Alignment of field: " , stringify ! ( vpx_svc_parameters ) ,
-                "::" , stringify ! ( speed_per_layer ) ));
-    assert_eq! (unsafe {
                 & ( * ( 0 as * const vpx_svc_parameters ) ) .
-                temporal_layering_mode as * const _ as usize } , 240usize ,
+                temporal_layering_mode as * const _ as usize } , 192usize ,
                 concat ! (
                 "Alignment of field: " , stringify ! ( vpx_svc_parameters ) ,
                 "::" , stringify ! ( temporal_layering_mode ) ));
@@ -1355,6 +1349,12 @@ extern "C" {
 extern "C" {
     pub fn vpx_codec_vp9_cx() -> *mut vpx_codec_iface_t;
 }
+extern "C" {
+    pub static mut vpx_codec_vp10_cx_algo: vpx_codec_iface_t;
+}
+extern "C" {
+    pub fn vpx_codec_vp10_cx() -> *mut vpx_codec_iface_t;
+}
 #[repr(u32)]
 #[derive(Debug, Copy, Clone, PartialEq, Eq, Hash)]
 pub enum vp8e_enc_control_id {
@@ -1401,10 +1401,6 @@ pub enum vp8e_enc_control_id {
     VP9E_SET_COLOR_RANGE = 50,
     VP9E_SET_SVC_REF_FRAME_CONFIG = 51,
     VP9E_SET_RENDER_SIZE = 52,
-    VP9E_SET_TARGET_LEVEL = 53,
-    VP9E_GET_LEVEL = 54,
-    VP9E_SET_ALT_REF_AQ = 55,
-    VP8E_SET_GF_CBR_BOOST_PCT = 56,
 }
 #[repr(u32)]
 #[derive(Debug, Copy, Clone, PartialEq, Eq, Hash)]
@@ -1637,6 +1633,12 @@ extern "C" {
 extern "C" {
     pub fn vpx_codec_vp9_dx() -> *mut vpx_codec_iface_t;
 }
+extern "C" {
+    pub static mut vpx_codec_vp10_dx_algo: vpx_codec_iface_t;
+}
+extern "C" {
+    pub fn vpx_codec_vp10_dx() -> *mut vpx_codec_iface_t;
+}
 pub const vp8_dec_control_id_VP8D_SET_DECRYPTOR: vp8_dec_control_id =
     vp8_dec_control_id::VPXD_SET_DECRYPTOR;
 #[repr(u32)]
@@ -1652,8 +1654,7 @@ pub enum vp8_dec_control_id {
     VP9_SET_BYTE_ALIGNMENT = 263,
     VP9_INVERT_TILE_DECODE_ORDER = 264,
     VP9_SET_SKIP_LOOP_FILTER = 265,
-    VP9_DECODE_SVC_SPATIAL_LAYER = 266,
-    VP8_DECODER_CTRL_ID_MAX = 267,
+    VP8_DECODER_CTRL_ID_MAX = 266,
 }
 pub type vpx_decrypt_cb =
     ::std::option::Option<unsafe extern "C" fn(decrypt_state:
@@ -1879,4 +1880,3 @@ extern "C" {
                                                     *mut ::std::os::raw::c_void)
      -> vpx_codec_err_t;
 }
-
