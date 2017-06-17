@@ -1,5 +1,6 @@
 [package]
 authors = ["Richard Diamond <wichard@vitalitystudios.com>"]
+categories = ["multimedia::video", "multimedia::encoding", "api-bindings"]
 description = "Rust idiomatic wrapper to libvpx"
 keywords = ["vp9", "vp8", "webm", "video-encoder", "video-decoder"]
 license = "MPL-2.0"
