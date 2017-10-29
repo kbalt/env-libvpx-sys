@@ -11,7 +11,7 @@ keywords = ["vp9", "webm"]
 links = "vpx"
 name = "libvpx-native-sys"
 repository = "https://github.com/pornel/rust-vpx"
-version = "4.0.1"
+version = "4.0.2"
 
 [build-dependencies]
 pkg-config = "0.3.5"
@@ -19,7 +19,7 @@ semver-parser = "0.7.0"
 
 [build-dependencies.bindgen]
 optional = true
-version = "0.25.5"
+version = "0.31.1"
 
 [features]
 default = []
