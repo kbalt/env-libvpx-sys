@@ -19,7 +19,7 @@ semver-parser = "0.7.0"
 
 [build-dependencies.bindgen]
 optional = true
-version = "0.31.1"
+version = "0.32.3"
 
 [features]
 default = []
