@@ -109,24 +109,24 @@ pub trait Encoder: InternalEncoder
                     ffi::vpx_codec_cx_pkt_kind::VPX_CODEC_CX_FRAME_PKT => {
                         let frame: &ffi::vpx_codec_cx_pkt__bindgen_ty_1__bindgen_ty_1 = transmute(pkt.data.frame.as_ref());
                         let frame: Frame = From::from(frame);
-                        try!(dest.write_frame(&frame));
+                        dest.write_frame(&frame)?;
                     },
                     ffi::vpx_codec_cx_pkt_kind::VPX_CODEC_STATS_PKT => {
                         let buf: &ffi::vpx_fixed_buf_t = transmute(pkt.data.twopass_stats.as_ref());
                         let buf = from_raw_parts(buf.buf as *const u8, buf.sz as usize);
-                        try!(dest.write_two_pass_stats(buf));
+                        dest.write_two_pass_stats(buf)?;
                     },
                     ffi::vpx_codec_cx_pkt_kind::VPX_CODEC_FPMB_STATS_PKT => {
                         let buf: &ffi::vpx_fixed_buf_t = transmute(pkt.data.twopass_stats.as_ref());
                         let buf = from_raw_parts(buf.buf as *const u8, buf.sz as usize);
-                        try!(dest.write_two_pass_stats(buf));
+                        dest.write_two_pass_stats(buf)?;
                     },
                     ffi::vpx_codec_cx_pkt_kind::VPX_CODEC_PSNR_PKT => {
                         let psnr: &ffi::vpx_codec_cx_pkt__bindgen_ty_1_vpx_psnr_pkt = transmute(pkt.data.psnr.as_ref());
-                        try!(dest.write_psnr(&psnr.samples, &psnr.sse, &psnr.psnr));
+                        dest.write_psnr(&psnr.samples, &psnr.sse, &psnr.psnr)?;
                     },
                     kind => {
-                        try!(dest.write_custom(kind, &pkt.data));
+                        dest.write_custom(kind, &pkt.data)?;
                     },
                 }
             }
