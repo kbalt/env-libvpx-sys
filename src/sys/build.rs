@@ -1,13 +1,13 @@
 #[cfg(feature = "generate")]
 extern crate bindgen;
-extern crate semver_parser;
 extern crate pkg_config as pkg;
+extern crate semver_parser;
 
 use semver_parser::version;
 use semver_parser::version::Version;
 use std::env;
 use std::fs;
-use std::path::{Path,PathBuf};
+use std::path::{Path, PathBuf};
 
 pub fn main() {
     let src_dir = env::var_os("CARGO_MANIFEST_DIR").unwrap();
@@ -88,7 +88,7 @@ fn copy_pregenerated(gen_dir: &Path, ffi_rs: &Path, exact_file: &Path, version: 
                 }
                 Some(diff)
             });
-            diff.map(|diff|(path, diff))
+            diff.map(|diff| (path, diff))
         })
         .min_by_key(|pair| pair.1);
 
