@@ -168,16 +168,14 @@ extern "C" {
     w: c_uint,
     h: c_uint,
   ) -> c_int;
+}
+extern "C" {
   pub fn vpx_img_flip(img: *mut vpx_image_t);
+}
+extern "C" {
   pub fn vpx_img_free(img: *mut vpx_image_t);
 }
-#[repr(C)]
-#[derive(Copy, Clone)]
-pub union __mbstate_t {
-  pub __mbstate8: [c_char; 128usize],
-  pub _mbstateL: c_longlong,
-  _bindgen_union_align: [u64; 16usize],
-}
+
 #[repr(u32)]
 #[derive(Debug, Copy, Clone, PartialEq, Eq, Hash)]
 pub enum vpx_codec_err_t {
@@ -248,27 +246,33 @@ extern "C" {
   pub fn vpx_codec_get_caps(iface: *mut vpx_codec_iface_t) -> vpx_codec_caps_t;
   pub fn vpx_codec_control_(ctx: *mut vpx_codec_ctx_t, ctrl_id: c_int, ...) -> vpx_codec_err_t;
 }
-pub const vp8_com_control_id_VP8_SET_REFERENCE: vp8_com_control_id = 1;
-pub const vp8_com_control_id_VP8_COPY_REFERENCE: vp8_com_control_id = 2;
-pub const vp8_com_control_id_VP8_SET_POSTPROC: vp8_com_control_id = 3;
-pub const vp8_com_control_id_VP8_SET_DBG_COLOR_REF_FRAME: vp8_com_control_id = 4;
-pub const vp8_com_control_id_VP8_SET_DBG_COLOR_MB_MODES: vp8_com_control_id = 5;
-pub const vp8_com_control_id_VP8_SET_DBG_COLOR_B_MODES: vp8_com_control_id = 6;
-pub const vp8_com_control_id_VP8_SET_DBG_DISPLAY_MV: vp8_com_control_id = 7;
-pub const vp8_com_control_id_VP9_GET_REFERENCE: vp8_com_control_id = 128;
-pub const vp8_com_control_id_VP8_COMMON_CTRL_ID_MAX: vp8_com_control_id = 129;
-pub const vp8_com_control_id_VP8_DECODER_CTRL_ID_START: vp8_com_control_id = 256;
-pub type vp8_com_control_id = u32;
-pub const vp8_postproc_level_VP8_NOFILTERING: vp8_postproc_level = 0;
-pub const vp8_postproc_level_VP8_DEBLOCK: vp8_postproc_level = 1;
-pub const vp8_postproc_level_VP8_DEMACROBLOCK: vp8_postproc_level = 2;
-pub const vp8_postproc_level_VP8_ADDNOISE: vp8_postproc_level = 4;
-pub const vp8_postproc_level_VP8_DEBUG_TXT_FRAME_INFO: vp8_postproc_level = 8;
-pub const vp8_postproc_level_VP8_DEBUG_TXT_MBLK_MODES: vp8_postproc_level = 16;
-pub const vp8_postproc_level_VP8_DEBUG_TXT_DC_DIFF: vp8_postproc_level = 32;
-pub const vp8_postproc_level_VP8_DEBUG_TXT_RATE_INFO: vp8_postproc_level = 64;
-pub const vp8_postproc_level_VP8_MFQE: vp8_postproc_level = 1024;
-pub type vp8_postproc_level = u32;
+#[repr(u32)]
+#[derive(Debug, Copy, Clone, PartialEq, Eq, Hash)]
+pub enum vp8_com_control_id {
+  VP8_SET_REFERENCE = 1,
+  VP8_COPY_REFERENCE = 2,
+  VP8_SET_POSTPROC = 3,
+  VP8_SET_DBG_COLOR_REF_FRAME = 4,
+  VP8_SET_DBG_COLOR_MB_MODES = 5,
+  VP8_SET_DBG_COLOR_B_MODES = 6,
+  VP8_SET_DBG_DISPLAY_MV = 7,
+  VP9_GET_REFERENCE = 128,
+  VP8_COMMON_CTRL_ID_MAX = 129,
+  VP8_DECODER_CTRL_ID_START = 256,
+}
+#[repr(u32)]
+#[derive(Debug, Copy, Clone, PartialEq, Eq, Hash)]
+pub enum vp8_postproc_level {
+  VP8_NOFILTERING = 0,
+  VP8_DEBLOCK = 1,
+  VP8_DEMACROBLOCK = 2,
+  VP8_ADDNOISE = 4,
+  VP8_DEBUG_TXT_FRAME_INFO = 8,
+  VP8_DEBUG_TXT_MBLK_MODES = 16,
+  VP8_DEBUG_TXT_DC_DIFF = 32,
+  VP8_DEBUG_TXT_RATE_INFO = 64,
+  VP8_MFQE = 1024,
+}
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct vp8_postproc_cfg {
@@ -505,56 +509,59 @@ extern "C" {
   pub static mut vpx_codec_vp9_cx_algo: vpx_codec_iface_t;
   pub fn vpx_codec_vp9_cx() -> *mut vpx_codec_iface_t;
 }
-pub const vp8e_enc_control_id_VP8E_SET_ROI_MAP: vp8e_enc_control_id = 8;
-pub const vp8e_enc_control_id_VP8E_SET_ACTIVEMAP: vp8e_enc_control_id = 9;
-pub const vp8e_enc_control_id_VP8E_SET_SCALEMODE: vp8e_enc_control_id = 11;
-pub const vp8e_enc_control_id_VP8E_SET_CPUUSED: vp8e_enc_control_id = 13;
-pub const vp8e_enc_control_id_VP8E_SET_ENABLEAUTOALTREF: vp8e_enc_control_id = 14;
-pub const vp8e_enc_control_id_VP8E_SET_NOISE_SENSITIVITY: vp8e_enc_control_id = 15;
-pub const vp8e_enc_control_id_VP8E_SET_SHARPNESS: vp8e_enc_control_id = 16;
-pub const vp8e_enc_control_id_VP8E_SET_STATIC_THRESHOLD: vp8e_enc_control_id = 17;
-pub const vp8e_enc_control_id_VP8E_SET_TOKEN_PARTITIONS: vp8e_enc_control_id = 18;
-pub const vp8e_enc_control_id_VP8E_GET_LAST_QUANTIZER: vp8e_enc_control_id = 19;
-pub const vp8e_enc_control_id_VP8E_GET_LAST_QUANTIZER_64: vp8e_enc_control_id = 20;
-pub const vp8e_enc_control_id_VP8E_SET_ARNR_MAXFRAMES: vp8e_enc_control_id = 21;
-pub const vp8e_enc_control_id_VP8E_SET_ARNR_STRENGTH: vp8e_enc_control_id = 22;
-pub const vp8e_enc_control_id_VP8E_SET_ARNR_TYPE: vp8e_enc_control_id = 23;
-pub const vp8e_enc_control_id_VP8E_SET_TUNING: vp8e_enc_control_id = 24;
-pub const vp8e_enc_control_id_VP8E_SET_CQ_LEVEL: vp8e_enc_control_id = 25;
-pub const vp8e_enc_control_id_VP8E_SET_MAX_INTRA_BITRATE_PCT: vp8e_enc_control_id = 26;
-pub const vp8e_enc_control_id_VP8E_SET_FRAME_FLAGS: vp8e_enc_control_id = 27;
-pub const vp8e_enc_control_id_VP9E_SET_MAX_INTER_BITRATE_PCT: vp8e_enc_control_id = 28;
-pub const vp8e_enc_control_id_VP9E_SET_GF_CBR_BOOST_PCT: vp8e_enc_control_id = 29;
-pub const vp8e_enc_control_id_VP8E_SET_TEMPORAL_LAYER_ID: vp8e_enc_control_id = 30;
-pub const vp8e_enc_control_id_VP8E_SET_SCREEN_CONTENT_MODE: vp8e_enc_control_id = 31;
-pub const vp8e_enc_control_id_VP9E_SET_LOSSLESS: vp8e_enc_control_id = 32;
-pub const vp8e_enc_control_id_VP9E_SET_TILE_COLUMNS: vp8e_enc_control_id = 33;
-pub const vp8e_enc_control_id_VP9E_SET_TILE_ROWS: vp8e_enc_control_id = 34;
-pub const vp8e_enc_control_id_VP9E_SET_FRAME_PARALLEL_DECODING: vp8e_enc_control_id = 35;
-pub const vp8e_enc_control_id_VP9E_SET_AQ_MODE: vp8e_enc_control_id = 36;
-pub const vp8e_enc_control_id_VP9E_SET_FRAME_PERIODIC_BOOST: vp8e_enc_control_id = 37;
-pub const vp8e_enc_control_id_VP9E_SET_NOISE_SENSITIVITY: vp8e_enc_control_id = 38;
-pub const vp8e_enc_control_id_VP9E_SET_SVC: vp8e_enc_control_id = 39;
-pub const vp8e_enc_control_id_VP9E_SET_SVC_PARAMETERS: vp8e_enc_control_id = 40;
-pub const vp8e_enc_control_id_VP9E_SET_SVC_LAYER_ID: vp8e_enc_control_id = 41;
-pub const vp8e_enc_control_id_VP9E_SET_TUNE_CONTENT: vp8e_enc_control_id = 42;
-pub const vp8e_enc_control_id_VP9E_GET_SVC_LAYER_ID: vp8e_enc_control_id = 43;
-pub const vp8e_enc_control_id_VP9E_REGISTER_CX_CALLBACK: vp8e_enc_control_id = 44;
-pub const vp8e_enc_control_id_VP9E_SET_COLOR_SPACE: vp8e_enc_control_id = 45;
-pub const vp8e_enc_control_id_VP9E_SET_TEMPORAL_LAYERING_MODE: vp8e_enc_control_id = 46;
-pub const vp8e_enc_control_id_VP9E_SET_MIN_GF_INTERVAL: vp8e_enc_control_id = 47;
-pub const vp8e_enc_control_id_VP9E_SET_MAX_GF_INTERVAL: vp8e_enc_control_id = 48;
-pub const vp8e_enc_control_id_VP9E_GET_ACTIVEMAP: vp8e_enc_control_id = 49;
-pub const vp8e_enc_control_id_VP9E_SET_COLOR_RANGE: vp8e_enc_control_id = 50;
-pub const vp8e_enc_control_id_VP9E_SET_SVC_REF_FRAME_CONFIG: vp8e_enc_control_id = 51;
-pub const vp8e_enc_control_id_VP9E_SET_RENDER_SIZE: vp8e_enc_control_id = 52;
-pub const vp8e_enc_control_id_VP9E_SET_TARGET_LEVEL: vp8e_enc_control_id = 53;
-pub const vp8e_enc_control_id_VP9E_SET_ROW_MT: vp8e_enc_control_id = 54;
-pub const vp8e_enc_control_id_VP9E_GET_LEVEL: vp8e_enc_control_id = 55;
-pub const vp8e_enc_control_id_VP9E_SET_ALT_REF_AQ: vp8e_enc_control_id = 56;
-pub const vp8e_enc_control_id_VP8E_SET_GF_CBR_BOOST_PCT: vp8e_enc_control_id = 57;
-pub const vp8e_enc_control_id_VP9E_ENABLE_MOTION_VECTOR_UNIT_TEST: vp8e_enc_control_id = 58;
-pub type vp8e_enc_control_id = u32;
+#[repr(u32)]
+#[derive(Debug, Copy, Clone, PartialEq, Eq, Hash)]
+pub enum vp8e_enc_control_id {
+  VP8E_SET_ROI_MAP = 8,
+  VP8E_SET_ACTIVEMAP = 9,
+  VP8E_SET_SCALEMODE = 11,
+  VP8E_SET_CPUUSED = 13,
+  VP8E_SET_ENABLEAUTOALTREF = 14,
+  VP8E_SET_NOISE_SENSITIVITY = 15,
+  VP8E_SET_SHARPNESS = 16,
+  VP8E_SET_STATIC_THRESHOLD = 17,
+  VP8E_SET_TOKEN_PARTITIONS = 18,
+  VP8E_GET_LAST_QUANTIZER = 19,
+  VP8E_GET_LAST_QUANTIZER_64 = 20,
+  VP8E_SET_ARNR_MAXFRAMES = 21,
+  VP8E_SET_ARNR_STRENGTH = 22,
+  VP8E_SET_ARNR_TYPE = 23,
+  VP8E_SET_TUNING = 24,
+  VP8E_SET_CQ_LEVEL = 25,
+  VP8E_SET_MAX_INTRA_BITRATE_PCT = 26,
+  VP8E_SET_FRAME_FLAGS = 27,
+  VP9E_SET_MAX_INTER_BITRATE_PCT = 28,
+  VP9E_SET_GF_CBR_BOOST_PCT = 29,
+  VP8E_SET_TEMPORAL_LAYER_ID = 30,
+  VP8E_SET_SCREEN_CONTENT_MODE = 31,
+  VP9E_SET_LOSSLESS = 32,
+  VP9E_SET_TILE_COLUMNS = 33,
+  VP9E_SET_TILE_ROWS = 34,
+  VP9E_SET_FRAME_PARALLEL_DECODING = 35,
+  VP9E_SET_AQ_MODE = 36,
+  VP9E_SET_FRAME_PERIODIC_BOOST = 37,
+  VP9E_SET_NOISE_SENSITIVITY = 38,
+  VP9E_SET_SVC = 39,
+  VP9E_SET_SVC_PARAMETERS = 40,
+  VP9E_SET_SVC_LAYER_ID = 41,
+  VP9E_SET_TUNE_CONTENT = 42,
+  VP9E_GET_SVC_LAYER_ID = 43,
+  VP9E_REGISTER_CX_CALLBACK = 44,
+  VP9E_SET_COLOR_SPACE = 45,
+  VP9E_SET_TEMPORAL_LAYERING_MODE = 46,
+  VP9E_SET_MIN_GF_INTERVAL = 47,
+  VP9E_SET_MAX_GF_INTERVAL = 48,
+  VP9E_GET_ACTIVEMAP = 49,
+  VP9E_SET_COLOR_RANGE = 50,
+  VP9E_SET_SVC_REF_FRAME_CONFIG = 51,
+  VP9E_SET_RENDER_SIZE = 52,
+  VP9E_SET_TARGET_LEVEL = 53,
+  VP9E_SET_ROW_MT = 54,
+  VP9E_GET_LEVEL = 55,
+  VP9E_SET_ALT_REF_AQ = 56,
+  VP8E_SET_GF_CBR_BOOST_PCT = 57,
+  VP9E_ENABLE_MOTION_VECTOR_UNIT_TEST = 58,
+}
 #[repr(u32)]
 #[derive(Debug, Copy, Clone, PartialEq, Eq, Hash)]
 pub enum vpx_scaling_mode_1d {
@@ -564,15 +571,14 @@ pub enum vpx_scaling_mode_1d {
   VP8E_ONETWO = 3,
 }
 pub use self::vpx_scaling_mode_1d as VPX_SCALING_MODE;
-pub const vp9e_temporal_layering_mode_VP9E_TEMPORAL_LAYERING_MODE_NOLAYERING:
-  vp9e_temporal_layering_mode = 0;
-pub const vp9e_temporal_layering_mode_VP9E_TEMPORAL_LAYERING_MODE_BYPASS:
-  vp9e_temporal_layering_mode = 1;
-pub const vp9e_temporal_layering_mode_VP9E_TEMPORAL_LAYERING_MODE_0101:
-  vp9e_temporal_layering_mode = 2;
-pub const vp9e_temporal_layering_mode_VP9E_TEMPORAL_LAYERING_MODE_0212:
-  vp9e_temporal_layering_mode = 3;
-pub type vp9e_temporal_layering_mode = u32;
+#[repr(u32)]
+#[derive(Debug, Copy, Clone, PartialEq, Eq, Hash)]
+pub enum vp9e_temporal_layering_mode {
+  VP9E_TEMPORAL_LAYERING_MODE_NOLAYERING = 0,
+  VP9E_TEMPORAL_LAYERING_MODE_BYPASS = 1,
+  VP9E_TEMPORAL_LAYERING_MODE_0101 = 2,
+  VP9E_TEMPORAL_LAYERING_MODE_0212 = 3,
+}
 pub use self::vp9e_temporal_layering_mode as VP9E_TEMPORAL_LAYERING_MODE;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -600,19 +606,28 @@ pub struct vpx_scaling_mode {
   pub v_scaling_mode: VPX_SCALING_MODE,
 }
 pub type vpx_scaling_mode_t = vpx_scaling_mode;
-pub const vp8e_token_partitions_VP8_ONE_TOKENPARTITION: vp8e_token_partitions = 0;
-pub const vp8e_token_partitions_VP8_TWO_TOKENPARTITION: vp8e_token_partitions = 1;
-pub const vp8e_token_partitions_VP8_FOUR_TOKENPARTITION: vp8e_token_partitions = 2;
-pub const vp8e_token_partitions_VP8_EIGHT_TOKENPARTITION: vp8e_token_partitions = 3;
-pub type vp8e_token_partitions = u32;
-pub const vp9e_tune_content_VP9E_CONTENT_DEFAULT: vp9e_tune_content = 0;
-pub const vp9e_tune_content_VP9E_CONTENT_SCREEN: vp9e_tune_content = 1;
-pub const vp9e_tune_content_VP9E_CONTENT_FILM: vp9e_tune_content = 2;
-pub const vp9e_tune_content_VP9E_CONTENT_INVALID: vp9e_tune_content = 3;
-pub type vp9e_tune_content = u32;
-pub const vp8e_tuning_VP8_TUNE_PSNR: vp8e_tuning = 0;
-pub const vp8e_tuning_VP8_TUNE_SSIM: vp8e_tuning = 1;
-pub type vp8e_tuning = u32;
+#[repr(u32)]
+#[derive(Debug, Copy, Clone, PartialEq, Eq, Hash)]
+pub enum vp8e_token_partitions {
+  VP8_ONE_TOKENPARTITION = 0,
+  VP8_TWO_TOKENPARTITION = 1,
+  VP8_FOUR_TOKENPARTITION = 2,
+  VP8_EIGHT_TOKENPARTITION = 3,
+}
+#[repr(u32)]
+#[derive(Debug, Copy, Clone, PartialEq, Eq, Hash)]
+pub enum vp9e_tune_content {
+  VP9E_CONTENT_DEFAULT = 0,
+  VP9E_CONTENT_SCREEN = 1,
+  VP9E_CONTENT_FILM = 2,
+  VP9E_CONTENT_INVALID = 3,
+}
+#[repr(u32)]
+#[derive(Debug, Copy, Clone, PartialEq, Eq, Hash)]
+pub enum vp8e_tuning {
+  VP8_TUNE_PSNR = 0,
+  VP8_TUNE_SSIM = 1,
+}
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct vpx_svc_layer_id {
@@ -635,21 +650,25 @@ extern "C" {
   pub static mut vpx_codec_vp9_dx_algo: vpx_codec_iface_t;
   pub fn vpx_codec_vp9_dx() -> *mut vpx_codec_iface_t;
 }
-pub const vp8_dec_control_id_VP8D_GET_LAST_REF_UPDATES: vp8_dec_control_id = 256;
-pub const vp8_dec_control_id_VP8D_GET_FRAME_CORRUPTED: vp8_dec_control_id = 257;
-pub const vp8_dec_control_id_VP8D_GET_LAST_REF_USED: vp8_dec_control_id = 258;
-pub const vp8_dec_control_id_VPXD_SET_DECRYPTOR: vp8_dec_control_id = 259;
-pub const vp8_dec_control_id_VP8D_SET_DECRYPTOR: vp8_dec_control_id = 259;
-pub const vp8_dec_control_id_VP9D_GET_FRAME_SIZE: vp8_dec_control_id = 260;
-pub const vp8_dec_control_id_VP9D_GET_DISPLAY_SIZE: vp8_dec_control_id = 261;
-pub const vp8_dec_control_id_VP9D_GET_BIT_DEPTH: vp8_dec_control_id = 262;
-pub const vp8_dec_control_id_VP9_SET_BYTE_ALIGNMENT: vp8_dec_control_id = 263;
-pub const vp8_dec_control_id_VP9_INVERT_TILE_DECODE_ORDER: vp8_dec_control_id = 264;
-pub const vp8_dec_control_id_VP9_SET_SKIP_LOOP_FILTER: vp8_dec_control_id = 265;
-pub const vp8_dec_control_id_VP9_DECODE_SVC_SPATIAL_LAYER: vp8_dec_control_id = 266;
-pub const vp8_dec_control_id_VPXD_GET_LAST_QUANTIZER: vp8_dec_control_id = 267;
-pub const vp8_dec_control_id_VP8_DECODER_CTRL_ID_MAX: vp8_dec_control_id = 268;
-pub type vp8_dec_control_id = u32;
+pub const vp8_dec_control_id_VP8D_SET_DECRYPTOR: vp8_dec_control_id =
+  vp8_dec_control_id::VPXD_SET_DECRYPTOR;
+#[repr(u32)]
+#[derive(Debug, Copy, Clone, PartialEq, Eq, Hash)]
+pub enum vp8_dec_control_id {
+  VP8D_GET_LAST_REF_UPDATES = 256,
+  VP8D_GET_FRAME_CORRUPTED = 257,
+  VP8D_GET_LAST_REF_USED = 258,
+  VPXD_SET_DECRYPTOR = 259,
+  VP9D_GET_FRAME_SIZE = 260,
+  VP9D_GET_DISPLAY_SIZE = 261,
+  VP9D_GET_BIT_DEPTH = 262,
+  VP9_SET_BYTE_ALIGNMENT = 263,
+  VP9_INVERT_TILE_DECODE_ORDER = 264,
+  VP9_SET_SKIP_LOOP_FILTER = 265,
+  VP9_DECODE_SVC_SPATIAL_LAYER = 266,
+  VPXD_GET_LAST_QUANTIZER = 267,
+  VP8_DECODER_CTRL_ID_MAX = 268,
+}
 pub type vpx_decrypt_cb = ::std::option::Option<
   unsafe extern "C" fn(
     decrypt_state: *mut c_void,

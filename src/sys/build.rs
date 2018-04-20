@@ -114,7 +114,10 @@ fn generate_bindings(_ffi_header: &Path, _include_paths: &[PathBuf], _ffi_rs: &P
 fn generate_bindings(ffi_header: &Path, include_paths: &[PathBuf], ffi_rs: &Path, exact_file: &Path, _version: &str) {
     let mut b = bindgen::builder().header(ffi_header.to_str().unwrap())
         .rust_target(bindgen::RustTarget::Stable_1_21)
-        .rustified_enum("vpx_.*")
+        .blacklist_type("^[^vV]")
+        .rustified_enum("^vp[x89]e?_.*")
+        .trust_clang_mangling(false)
+        .layout_tests(false) // breaks 32/64-bit compat
         .generate_comments(false); // vpx comments have prefix /*!\
 
     for dir in include_paths {
