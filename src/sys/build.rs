@@ -18,18 +18,49 @@ pub fn main() {
     let ffi_header = src_dir.join("ffi.h");
     let ffi_rs = out_dir.join("ffi.rs");
 
-    let libvpx = pkg::probe_library("vpx").unwrap();
+    let (version,include_paths) = match env::var_os("VPX_LIB_DIR") {
+        None => {
+            // use VPX config from pkg-config
+            let libvpx = pkg::probe_library("vpx").unwrap();
+            (libvpx.version, libvpx.include_paths)
+        }
+        Some(vpx_libdir) => {
+            // use VPX config from environment variable
+            let libdir = std::path::Path::new(&vpx_libdir);
+            let version = env::var("VPX_VERSION").expect("env var VPX_VERSION");
+
+            let mut include_paths = vec![];
+            if let Some(include_dir) = env::var_os("VPX_INCLUDE_DIR") {
+                include_paths.push(include_dir.into());
+            }
+
+            // Set lib search path.
+            println!("cargo:rustc-link-search=native={}", libdir.display());
+
+            // Get static using pkg-config-rs rules.
+            let statik = infer_static("VPX");
+
+            // Set libname.
+            if statik {
+                println!("cargo:rustc-link-lib=static=vpx");
+            } else {
+                println!("cargo:rustc-link-lib=vpx");
+            }
+
+            (version, include_paths)
+        }
+    };
 
     println!("rerun-if-changed={}", ffi_header.display());
-    for dir in &libvpx.include_paths {
+    for dir in &include_paths {
         println!("rerun-if-changed={}", dir.display());
     }
 
     let gen_dir = src_dir.join("generated");
-    let exact_file = gen_dir.join(format!("vpx-ffi-{}.rs", libvpx.version));
+    let exact_file = gen_dir.join(format!("vpx-ffi-{}.rs", version));
 
-    if cfg!(feature = "generate") || !copy_pregenerated(&gen_dir, &ffi_rs, &exact_file, &libvpx.version) {
-        generate_bindings(&ffi_header, &libvpx.include_paths, &ffi_rs, &exact_file, &libvpx.version);
+    if cfg!(feature = "generate") || !copy_pregenerated(&gen_dir, &ffi_rs, &exact_file, &version) {
+        generate_bindings(&ffi_header, &include_paths, &ffi_rs, &exact_file, &version);
     }
 }
 
@@ -44,6 +75,21 @@ fn parse(version: &str) -> Result<Version, String> {
                 Err(err)
             }
         },
+    }
+}
+
+// This function was modified from pkg-config-rs and should have same behavior.
+fn infer_static(name: &str) -> bool {
+    if env::var_os(&format!("{}_STATIC", name)).is_some() {
+        true
+    } else if env::var_os(&format!("{}_DYNAMIC", name)).is_some() {
+        false
+    } else if env::var_os("PKG_CONFIG_ALL_STATIC").is_some() {
+        true
+    } else if env::var_os("PKG_CONFIG_ALL_DYNAMIC").is_some() {
+        false
+    } else {
+        false
     }
 }
 
