@@ -9,7 +9,7 @@ keywords = ["vp9", "webm"]
 links = "vpx"
 name = "env-libvpx-sys"
 repository = "https://github.com/astraw/rust-vpx"
-version = "4.0.9"
+version = "4.0.10"
 
 [build-dependencies]
 pkg-config = "0.3.5"
