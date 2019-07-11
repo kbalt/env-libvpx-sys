@@ -147,13 +147,13 @@ fn copy_pregenerated(gen_dir: &Path, ffi_rs: &Path, exact_file: &Path, version: 
         }
     }
 
-    println!("\ncargo:warning=Bindings for vpx version {} are not bundled with libvpx-native-sys yet (expected in {})", version, exact_file.display());
+    println!("\ncargo:warning=Bindings for vpx version {} are not bundled with env-libvpx-sys yet (expected in {})", version, exact_file.display());
     false
 }
 
 #[cfg(not(feature = "generate"))]
 fn generate_bindings(_ffi_header: &Path, _include_paths: &[PathBuf], _ffi_rs: &Path, _exact_file: &Path, version: &str) {
-    panic!("The 'generate' feature of libvpx-native-sys is disabled, and we don't have pre-generated bindings for libvpx version {}. Enable 'generate' feature of the 'libvpx-native-sys' crate", version);
+    panic!("The 'generate' feature of env-libvpx-sys is disabled, and we don't have pre-generated bindings for libvpx version {}. Enable 'generate' feature of the 'env-libvpx-sys' crate", version);
 }
 
 #[cfg(feature = "generate")]

@@ -11,7 +11,7 @@ version = "0.3.0"
 [dependencies]
 libc = "0.2.20"
 
-[dependencies.libvpx-native-sys]
+[dependencies.env-libvpx-sys]
 path = "src/sys"
 
 [lib]
