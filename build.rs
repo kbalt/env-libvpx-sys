@@ -42,6 +42,9 @@ pub fn main() {
 
             // Set libname.
             if statik {
+                #[cfg(target_os = "windows")]
+                println!("cargo:rustc-link-lib=static=vpxmt");
+                #[cfg(not(target_os = "windows"))]
                 println!("cargo:rustc-link-lib=static=vpx");
             } else {
                 println!("cargo:rustc-link-lib=vpx");
