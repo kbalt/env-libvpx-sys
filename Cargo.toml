@@ -8,7 +8,7 @@ license = "MPL-2.0"
 readme = "README.md"
 keywords = ["vp9", "webm"]
 links = "vpx"
-repository = "https://github.com/astraw/rust-vpx"
+repository = "https://github.com/astraw/env-libvpx-sys"
 version = "4.0.11"
 
 [build-dependencies]
