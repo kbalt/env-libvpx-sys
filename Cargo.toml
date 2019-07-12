@@ -1,4 +1,5 @@
 [package]
+name = "env-libvpx-sys"
 authors = ["Richard Diamond <wichard@vitalitystudios.com>", "Kornel Lesiński <kornel@geekhood.net>"]
 build = "build.rs"
 categories = ["multimedia::video", "multimedia::encoding", "api-bindings"]
@@ -7,7 +8,6 @@ license = "MPL-2.0"
 readme = "README.md"
 keywords = ["vp9", "webm"]
 links = "vpx"
-name = "env-libvpx-sys"
 repository = "https://github.com/astraw/rust-vpx"
 version = "4.0.11"
 
