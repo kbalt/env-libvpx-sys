@@ -5,7 +5,7 @@
 Rust bindings to libvpx.
 
 Allows encoding of VP9 video frames, and together with
-[WebM](https://crates.io/crates/webm-native), cration of WebM video files.
+[WebM](https://crates.io/crates/webm-native), creation of WebM video files.
 
 Supports system-wide installations of libvpx. Includes bundled FFI for a few
 versions of libvpx. You can also enable `generate` feature of this crate to
