@@ -27,12 +27,6 @@ pub fn main() {
         Some(vpx_libdir) => {
             // use VPX config from environment variable
             let libdir = std::path::Path::new(&vpx_libdir);
-            let version = env::var("VPX_VERSION").expect("env var VPX_VERSION");
-
-            let mut include_paths = vec![];
-            if let Some(include_dir) = env::var_os("VPX_INCLUDE_DIR") {
-                include_paths.push(include_dir.into());
-            }
 
             // Set lib search path.
             println!("cargo:rustc-link-search=native={}", libdir.display());
@@ -43,13 +37,18 @@ pub fn main() {
             // Set libname.
             if statik {
                 #[cfg(target_os = "windows")]
-                println!("cargo:rustc-link-lib=static=vpxmt");
+                println!("cargo:rustc-link-lib=static=libvpx");
                 #[cfg(not(target_os = "windows"))]
                 println!("cargo:rustc-link-lib=static=vpx");
             } else {
                 println!("cargo:rustc-link-lib=vpx");
             }
 
+            let version = env::var("VPX_VERSION").expect("env var VPX_VERSION");
+            let mut include_paths = vec![];
+            if let Some(include_dir) = env::var_os("VPX_INCLUDE_DIR") {
+                include_paths.push(include_dir.into());
+            }
             (version, include_paths)
         }
     };
