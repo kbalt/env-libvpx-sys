@@ -9,7 +9,7 @@ readme = "README.md"
 keywords = ["vp9", "webm"]
 links = "vpx"
 repository = "https://github.com/astraw/env-libvpx-sys"
-version = "4.0.11"
+version = "4.0.12"
 
 [build-dependencies]
 pkg-config = "0.3.5"
