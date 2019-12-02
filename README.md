@@ -1,3 +1,7 @@
+# env-libvpx-sys
+
+![](https://github.com/astraw/env-libvpx-sys/workflows/Build%20and%20Run/badge.svg)
+
 Rust bindings to libvpx.
 
 Allows encoding of VP9 video frames, and together with
