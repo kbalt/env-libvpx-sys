@@ -3,10 +3,8 @@ name: Build and Run
 on: [push]
 
 jobs:
-  windows-2019:
-
-    runs-on: windows-2019
-
+  windows-latest:
+    runs-on: windows-latest
     steps:
     - uses: actions/checkout@v1
     - name: download and extract libvpx
@@ -27,9 +25,7 @@ jobs:
         cargo run
 
   macos-latest:
-
     runs-on: macos-latest
-
     steps:
     - uses: actions/checkout@v1
     - name: download and extract libvpx
@@ -41,7 +37,6 @@ jobs:
     - name: install rustup
       run: |
         curl -sSf https://sh.rustup.rs | sh -s -- -y --profile minimal
-        echo "##vso[task.setvariable variable=PATH;]$PATH:$HOME/.cargo/bin"
     - name: Run test
       run: |
         cd vpx-sys-test
@@ -53,9 +48,7 @@ jobs:
         cargo run
 
   linux-latest:
-
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v1
     - name: download and extract libvpx
