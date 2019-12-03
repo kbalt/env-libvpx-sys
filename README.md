@@ -4,9 +4,17 @@
 
 Rust bindings to libvpx.
 
-Allows encoding of VP9 video frames, and together with
-[WebM](https://crates.io/crates/webm-native), creation of WebM video files.
+This began as a fork of
+[libvpx-native-sys](https://crates.io/crates/libvpx-native-sys) with a [fix to
+simplify working with Windows](https://github.com/kornelski/rust-vpx/pull/1).
+Since then, the focus has been on:
 
-Supports system-wide installations of libvpx. Includes bundled FFI for a few
-versions of libvpx. You can also enable `generate` feature of this crate to
-generate FFI on the fly for a custom version of libvpx.
+ * providing only the `-sys` layer. VPX header files are wrapped with bindgen
+   and the native library is linked. However, no higher-level Rust interface
+   is provided.
+ * adding [Continuous Integration tests for Windows, Linux and
+   Mac](https://github.com/astraw/env-libvpx-sys/actions).
+
+Includes bundled bindgen-generated FFI wrapper for a few versions of libvpx. You
+can also enable `generate` feature of this crate to generate FFI on the fly for
+a custom version of libvpx.
