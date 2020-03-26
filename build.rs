@@ -10,6 +10,13 @@ use std::fs;
 use std::path::{Path, PathBuf};
 
 pub fn main() {
+
+    println!("cargo:rerun-if-env-changed=VPX_LIB_DIR");
+    println!("cargo:rerun-if-env-changed=VPX_VERSION");
+    println!("cargo:rerun-if-env-changed=VPX_INCLUDE_DIR");
+    println!("cargo:rerun-if-env-changed=VPX_STATIC");
+    println!("cargo:rerun-if-env-changed=VPX_DYNAMIC");
+
     let src_dir = env::var_os("CARGO_MANIFEST_DIR").unwrap();
     let src_dir = Path::new(&src_dir);
     let out_dir = env::var_os("OUT_DIR").unwrap();
