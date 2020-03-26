@@ -9,8 +9,8 @@ jobs:
     - uses: actions/checkout@v1
     - name: download and extract libvpx
       run: |
-        curl -sSfL -O https://github.com/ShiftMediaProject/libvpx/releases/download/v1.8.1-1/libvpx_v1.8.1-1_msvc16.zip
-        unzip libvpx_v1.8.1-1_msvc16.zip -d $HOME\unzipped
+        curl -sSfL -O https://github.com/ShiftMediaProject/libvpx/releases/download/v1.8.2/libvpx_v1.8.2_msvc16.zip
+        unzip libvpx_v1.8.2_msvc16.zip -d $HOME\unzipped
         dir
         dir $HOME\unzipped
         dir $HOME\unzipped\lib\x64
@@ -18,7 +18,7 @@ jobs:
       run: |
         cd vpx-sys-test
         $Env:VPX_STATIC = "1"
-        $Env:VPX_VERSION = "1.8.1"
+        $Env:VPX_VERSION = "1.8.2"
         $Env:VPX_LIB_DIR = "$HOME\unzipped\lib\x64"
         $Env:VPX_INCLUDE_DIR = "$HOME\unzipped\include"
         $Env:VPX_LIB_DIR
