@@ -19,20 +19,4 @@ pub enum AQ_MODE {
 // Back compat
 pub use vpx_codec_err_t::*;
 
-impl Default for vpx_codec_enc_cfg {
-    fn default() -> Self {
-        unsafe {::std::mem::zeroed()}
-    }
-}
-impl Default for vpx_codec_ctx {
-    fn default() -> Self {
-        unsafe {::std::mem::zeroed()}
-    }
-}
-impl Default for vpx_image_t {
-    fn default() -> Self {
-        unsafe {::std::mem::zeroed()}
-    }
-}
-
 include!(concat!(env!("OUT_DIR"), "/ffi.rs"));
