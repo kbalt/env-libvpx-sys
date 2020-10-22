@@ -13,11 +13,11 @@ version = "4.0.13"
 
 [build-dependencies]
 pkg-config = "0.3.5"
-semver-parser = "0.7.0"
+semver-parser = "0.10.1"
 
 [build-dependencies.bindgen]
 optional = true
-version = "0.36.0"
+version = "0.55.1"
 
 [features]
 default = []

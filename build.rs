@@ -81,7 +81,7 @@ fn parse(version: &str) -> Result<Version, String> {
             if let Ok(zero_ver) = version::parse(&format!("{}.0", version)) {
                 Ok(zero_ver)
             } else {
-                Err(err)
+                Err(err.to_string())
             }
         },
     }
