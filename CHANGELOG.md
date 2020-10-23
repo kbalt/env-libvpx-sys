@@ -1,3 +1,17 @@
+# 5.0.0 - unreleased
+
+## Changed
+
+* [breaking] Remove implementations of `Default` for `vpx_codec_enc_cfg`,
+  `vpx_codec_ctx`, `vpx_image_t`. The old code zero-initialized these, which is
+  not valid and actually undefined behavior. This nevertheless worked for older
+  compilers, but triggers a panic with newer versions of rust. The correct
+  technique is to use `mem::MaybeUninit`.
+
+## Added
+
+* Support for libvpx 1.9
+
 # 4.0.13 - 2020-03-27
 
 ## Changed
