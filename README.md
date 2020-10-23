@@ -11,7 +11,8 @@ Since then, the focus has been on:
 
  * providing only the `-sys` layer. VPX header files are wrapped with bindgen
    and the native library is linked. However, no higher-level Rust interface
-   is provided.
+   is provided. (See the [vpx-encode crate](https://crates.io/crates/vpx-encode) for
+   a simple higher-level interface).
  * adding [Continuous Integration tests for Windows, Linux and
    Mac](https://github.com/astraw/env-libvpx-sys/actions).
 
