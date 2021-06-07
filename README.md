@@ -1,52 +1,87 @@
 # env-libvpx-sys
 
-![](https://github.com/astraw/env-libvpx-sys/workflows/Build%20and%20Run/badge.svg)
+[![Crates.io](https://img.shields.io/crates/v/env-libvpx-sys.svg)](https://crates.io/crates/env-libvpx-sys)
+![build](https://github.com/astraw/env-libvpx-sys/workflows/Build%20and%20Run/badge.svg)
+[![Documentation](https://docs.rs/env-libvpx-sys/badge.svg)](https://docs.rs/env-libvpx-sys/)
 
 Rust bindings to libvpx.
 
-**Chose your libvpx version when compiling the final application binary.** When
-`env-libvpx-sys` is compiled, cargo features are used to select the version of
-libvpx supported. Therefore, you must depend on `env-libvpx-sys` in your
-application's `Cargo.toml` file and specify the correct cargo feature for the
-version of libvpx you want. There are two ways to do this:
+## Features and characteristics
 
-*Method 1: specify libvpx version directly in `Cargo.toml`:*
+The `env-libvpx-sys` crate offers the following:
 
-Example `Cargo.toml` snippet:
+* It provides only the `-sys` layer. VPX header files are wrapped with bindgen
+  and the native library is linked. However, no higher-level Rust interface is
+  provided. (See the [vpx-encode crate](https://crates.io/crates/vpx-encode) for
+  a simple higher-level interface).
+* It adds [Continuous Integration tests for Windows, Linux and
+  Mac](https://github.com/astraw/env-libvpx-sys/actions).
+* It includes bundled bindgen-generated FFI wrapper for a few versions of
+  libvpx. You can also enable `generate` feature of this crate to generate FFI
+  on the fly for a custom version of libvpx.
+* It originally started as a fork of
+  [libvpx-native-sys](https://crates.io/crates/libvpx-native-sys) (see
+  [history](#History) below).
 
-```
-[dependencies]
-# In this example v1.10.x is selected:
-env-libvpx-sys = {version="6", features=["v1_10"]}
-```
+## How libvpx version is selected
 
-*Method 2: specify libvpx version when invoking cargo*
+At compilation time, `build.rs` determines how to link libvpx, including what
+version to use.
 
-Example `Cargo.toml` snippet:
+### Option 1: let `pkg-config` find it
 
-```
-[dependencies]
-env-libvpx-sys = "6"
-```
+This scenario is the default and is used when the environment variable
+`VPX_LIB_DIR` is not set. In this case,
+[`pkg-config`](https://crates.io/crates/pkg-config) will attempt to
+automatically discover libvpx.
 
-Then, when invoking cargo at the command line:
+If `VPX_VERSION` is set, `build.rs` will ensure that `pkg-config` returns the
+same version. If `VPX_VERSION` is not set, the version returned by `pkg-config`
+will be used.
 
-```
-cargo run --features env-libvpx-sys/v1_10
-```
+Note that `pkg-config` will check the `VPX_STATIC` environment variable, and if
+it is set, will attempt static linking.
+
+### Option 2: specify libvpx location manually
+
+In this scenario, set the following environment variables: `VPX_LIB_DIR`,
+`VPX_INCLUDE_DIR`, and `VPX_VERSION` appropriately. Caution: if `VPX_VERSION`
+does not match the linked library
+
+Additionally, `VPX_STATIC` may be set to `1` to force static linking.
+
+### Discussion about theoretical alternative of using cargo features to specify library version
+
+At one point, cargo features were considered as a means to select the library
+version used. However, this meant
+the final application binary would need to specify the library version used.
+This would place a requirement on all crates in the dependency chain from the
+final application binary to `env-libvpx-sys` that they must explicitly depend on
+`env-libvpx-sys` (even if, as is very likely beyond a vpx wrapper crate such as
+[`vpx-encode`](https://crates.io/crates/vpx-encode)) the intermediate or final
+crate does not directly call into `env-libvpx-sys`.
+
+As an additional problem, because cargo features are additive, the possibility
+for conflicting build requests with two sets of features would be possible in
+this scenario. The present alternative, namely setting the environment variable
+`VPX_VERSION`, naturally enforces the selection of only a single version.
+
+## (Re)generating the bindings with bindgen
+
+If the bindings for your version are not pre-generated in the `generated/`
+directory, you may let [`bindgen`](https://crates.io/crates/bindgen)
+automatically generate them during the build process by using the `generate`
+cargo feature.
+
+To save your (re)generated bindings and commit them to this repository, build
+using with the `generate` cargo feature. The easiest way to do this is to use
+the script `regen-ffi.sh` (or `regen-ffi.bat` on Windows). Then, copy the
+generated file in `target/debug/build/env-libvpx-sys-<hash>/out/ffi.rs` to
+`generated/vpx-ffi-<version>.rs`. Finally, add this file to version control.
+
+## History and thanks
 
 This began as a fork of
 [libvpx-native-sys](https://crates.io/crates/libvpx-native-sys) with a [fix to
 simplify working with Windows](https://github.com/kornelski/rust-vpx/pull/1).
-Since then, the focus has been on:
-
- * providing only the `-sys` layer. VPX header files are wrapped with bindgen
-   and the native library is linked. However, no higher-level Rust interface
-   is provided. (See the [vpx-encode crate](https://crates.io/crates/vpx-encode) for
-   a simple higher-level interface).
- * adding [Continuous Integration tests for Windows, Linux and
-   Mac](https://github.com/astraw/env-libvpx-sys/actions).
-
-Includes bundled bindgen-generated FFI wrapper for a few versions of libvpx. You
-can also enable `generate` feature of this crate to generate FFI on the fly for
-a custom version of libvpx.
+Thanks to those authors!
