@@ -4,6 +4,37 @@
 
 Rust bindings to libvpx.
 
+**Chose your libvpx version when compiling the final application binary.** When
+`env-libvpx-sys` is compiled, cargo features are used to select the version of
+libvpx supported. Therefore, you must depend on `env-libvpx-sys` in your
+application's `Cargo.toml` file and specify the correct cargo feature for the
+version of libvpx you want. There are two ways to do this:
+
+*Method 1: specify libvpx version directly in `Cargo.toml`:*
+
+Example `Cargo.toml` snippet:
+
+```
+[dependencies]
+# In this example v1.10.x is selected:
+env-libvpx-sys = {version="6", features=["v1_10"]}
+```
+
+*Method 2: specify libvpx version when invoking cargo*
+
+Example `Cargo.toml` snippet:
+
+```
+[dependencies]
+env-libvpx-sys = "6"
+```
+
+Then, when invoking cargo at the command line:
+
+```
+cargo run --features env-libvpx-sys/v1_10
+```
+
 This began as a fork of
 [libvpx-native-sys](https://crates.io/crates/libvpx-native-sys) with a [fix to
 simplify working with Windows](https://github.com/kornelski/rust-vpx/pull/1).

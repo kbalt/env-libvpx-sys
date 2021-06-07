@@ -1,3 +1,4 @@
 #!/bin/sh
 touch build.rs
-cargo build --features=generate
+cargo build --no-default-features --features=generate
+echo "Generated `out/ffi.fs`. You may want to copy this into `generated/`."

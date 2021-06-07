@@ -1,3 +1,13 @@
+# unreleased
+
+## Changed
+
+* Simplified logic in `build.rs`.
+
+## Added
+
+* Support for libvpx 1.10
+
 # 5.0.0 - 2020-10-23
 
 ## Changed
