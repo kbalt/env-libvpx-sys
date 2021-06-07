@@ -20,6 +20,7 @@ pub fn main() {
         out_dir.join("ffi.rs")
     };
 
+    #[allow(unused_variables)]
     let (found_version, include_paths) = match env::var_os("VPX_LIB_DIR") {
         None => {
             // use VPX config from pkg-config
