@@ -3,8 +3,8 @@ name: Build and Run
 on: [push]
 
 jobs:
-  windows-latest-vpx1_8_2:
-    runs-on: windows-latest
+  windows-2019-vpx1_8_2:
+    runs-on: windows-2019
     steps:
       - uses: actions/checkout@v1
       - name: download and extract libvpx
@@ -23,8 +23,8 @@ jobs:
           $Env:VPX_INCLUDE_DIR = "$HOME\unzipped\include"
           cargo run
 
-  windows-latest-vpx1_9_0:
-    runs-on: windows-latest
+  windows-2019-vpx1_9_0:
+    runs-on: windows-2019
     steps:
       - uses: actions/checkout@v1
       - name: download and extract libvpx
@@ -43,8 +43,8 @@ jobs:
           $Env:VPX_INCLUDE_DIR = "$HOME\unzipped\include"
           cargo run
 
-  windows-latest-vpx1_10_0:
-    runs-on: windows-latest
+  windows-2019-vpx1_10_0:
+    runs-on: windows-2019
     steps:
       - uses: actions/checkout@v1
       - name: download and extract libvpx
@@ -63,8 +63,8 @@ jobs:
           $Env:VPX_INCLUDE_DIR = "$HOME\unzipped\include"
           cargo run
 
-  macos-latest-vpx1_8_1:
-    runs-on: macos-latest
+  macos-10_15-vpx1_8_1:
+    runs-on: macos-10.15
     steps:
       - uses: actions/checkout@v1
       - name: download and extract libvpx
@@ -98,3 +98,17 @@ jobs:
         run: |
           cd vpx-sys-test
           cargo run
+
+  ubuntu-20_04-vpx1_8-generate:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v1
+      - name: download and extract libvpx
+        run: |
+          sudo apt-get update -y
+          sudo apt-get install -y libvpx-dev
+      - name: Run test
+        run: |
+          rm -rf generated
+          cd vpx-sys-test
+          cargo run --features env-libvpx-sys/generate
