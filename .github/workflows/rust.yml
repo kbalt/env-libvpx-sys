@@ -45,6 +45,27 @@ jobs:
         $Env:VPX_LIB_DIR
         cargo run
 
+  windows-latest-vpx1100:
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: download and extract libvpx
+      run: |
+        curl -sSfL -O  https://github.com/ShiftMediaProject/libvpx/releases/download/v1.10.0/libvpx_v1.10.0_msvc16.zip
+        unzip libvpx_v1.10.0_msvc16.zip -d $HOME\unzipped
+        dir
+        dir $HOME\unzipped
+        dir $HOME\unzipped\lib\x64
+    - name: Run test
+      run: |
+        cd vpx-sys-test
+        $Env:VPX_STATIC = "1"
+        $Env:VPX_VERSION = "1.10.0"
+        $Env:VPX_LIB_DIR = "$HOME\unzipped\lib\x64"
+        $Env:VPX_INCLUDE_DIR = "$HOME\unzipped\include"
+        $Env:VPX_LIB_DIR
+        cargo run
+
   macos-latest:
     runs-on: macos-latest
     steps:
