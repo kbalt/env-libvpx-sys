@@ -102,9 +102,9 @@ fn generate_bindings(ffi_header: &Path, include_paths: &[std::path::PathBuf], ff
     let mut b = bindgen::builder()
         .header(ffi_header.to_str().unwrap())
         .rust_target(bindgen::RustTarget::Stable_1_25)
-        .whitelist_type("^[vV].*")
-        .whitelist_var("^[vV].*")
-        .whitelist_function("^[vV].*")
+        .allowlist_type("^[vV].*")
+        .allowlist_var("^[vV].*")
+        .allowlist_function("^[vV].*")
         .rustified_enum("^v.*")
         .trust_clang_mangling(false)
         .layout_tests(false) // breaks 32/64-bit compat
