@@ -112,3 +112,30 @@ jobs:
           rm -rf generated
           cd vpx-sys-test
           cargo run --features env-libvpx-sys/generate
+
+  ubuntu-22_04-vpx1_11:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v1
+      - name: download and extract libvpx
+        run: |
+          sudo apt-get update -y
+          sudo apt-get install -y libvpx-dev
+      - name: Run test
+        run: |
+          cd vpx-sys-test
+          cargo run
+
+  ubuntu-22_04-vpx1_11-generate:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v1
+      - name: download and extract libvpx
+        run: |
+          sudo apt-get update -y
+          sudo apt-get install -y libvpx-dev
+      - name: Run test
+        run: |
+          rm -rf generated
+          cd vpx-sys-test
+          cargo run --features env-libvpx-sys/generate
