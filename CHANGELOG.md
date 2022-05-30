@@ -1,3 +1,9 @@
+# 5.1.1 - 2022-05-30
+
+## Added
+
+* Support for libvpx 1.11
+
 # 5.1.0 - 2021-06-07
 
 ## Changed
