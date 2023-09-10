@@ -155,7 +155,7 @@ jobs:
           cd vpx-sys-test
           cargo run
 
-  ubuntu-22_04-vpx1_11-generate:
+  ubuntu-22_04-vpx-generate:
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v3
