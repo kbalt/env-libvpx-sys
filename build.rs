@@ -28,9 +28,11 @@ pub fn main() {
 
             if let Some(v) = requested_version {
                 if lib.version != v {
-                    panic!("version mismatch. pkg-config returns version {}, but VPX_VERSION environment variable is {}.",
-                        lib.version,
-                        v);
+                    panic!(
+                        "version mismatch. pkg-config returns version {}, but VPX_VERSION \
+                    environment variable is {}.",
+                        lib.version, v
+                    );
                 }
             }
             (lib.version, lib.include_paths)
@@ -78,6 +80,12 @@ pub fn main() {
     {
         let src = format!("vpx-ffi-{}.rs", found_version);
         let full_src = std::path::PathBuf::from("generated").join(src);
+        if !full_src.exists() {
+            panic!(
+                "Expected file \"{}\" not found but 'generate' cargo feature not used.",
+                full_src.display()
+            );
+        }
         std::fs::copy(&full_src, &ffi_rs).unwrap();
     }
 }
