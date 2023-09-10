@@ -100,6 +100,21 @@ jobs:
           export PATH="$PATH:$HOME/.cargo/bin"
           cargo run
 
+  macos-latest-homebrew-vpx-generate:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: install libvpx using homebrew
+        run: |
+          brew install libvpx
+      - name: install rustup
+        run: |
+          curl -sSf https://sh.rustup.rs | sh -s -- -y --profile minimal
+      - name: Run test
+        run: |
+          cd vpx-sys-test
+          cargo run --features env-libvpx-sys/generate
+
   ubuntu-20_04-vpx1_8:
     runs-on: ubuntu-20.04
     steps:
