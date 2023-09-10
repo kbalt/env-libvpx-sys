@@ -14,7 +14,7 @@ jobs:
         runs-on: [windows-2019, windows-2022]
     runs-on: ${{ matrix.runs-on }}
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v3
       - name: download and extract libvpx
         run: |
           curl -sSfL -O https://github.com/ShiftMediaProject/libvpx/releases/download/v1.8.2/libvpx_v1.8.2_msvc16.zip
@@ -37,7 +37,7 @@ jobs:
         runs-on: [windows-2019, windows-2022]
     runs-on: ${{ matrix.runs-on }}
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v3
       - name: download and extract libvpx
         run: |
           curl -sSfL -O  https://github.com/ShiftMediaProject/libvpx/releases/download/v1.9.0/libvpx_v1.9.0_msvc16.zip
@@ -60,7 +60,7 @@ jobs:
         runs-on: [windows-2019, windows-2022]
     runs-on: ${{ matrix.runs-on }}
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v3
       - name: download and extract libvpx
         run: |
           curl -sSfL -O  https://github.com/ShiftMediaProject/libvpx/releases/download/v1.10.0/libvpx_v1.10.0_msvc16.zip
@@ -80,7 +80,7 @@ jobs:
   macos-10_15-vpx1_8_1:
     runs-on: macos-10.15
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v3
       - name: download and extract libvpx
         run: |
           cd /tmp
@@ -103,7 +103,7 @@ jobs:
   ubuntu-20_04-vpx1_8:
     runs-on: ubuntu-20.04
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v3
       - name: download and extract libvpx
         run: |
           sudo apt-get update -y
@@ -116,7 +116,7 @@ jobs:
   ubuntu-20_04-vpx1_8-generate:
     runs-on: ubuntu-20.04
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v3
       - name: download and extract libvpx
         run: |
           sudo apt-get update -y
@@ -130,7 +130,7 @@ jobs:
   ubuntu-22_04-vpx1_11:
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v3
       - name: download and extract libvpx
         run: |
           sudo apt-get update -y
@@ -143,7 +143,7 @@ jobs:
   ubuntu-22_04-vpx1_11-generate:
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v3
       - name: download and extract libvpx
         run: |
           sudo apt-get update -y
