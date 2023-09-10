@@ -109,7 +109,6 @@ fn infer_static(name: &str) -> bool {
 fn generate_bindings(ffi_header: &Path, include_paths: &[std::path::PathBuf], ffi_rs: &Path) {
     let mut b = bindgen::builder()
         .header(ffi_header.to_str().unwrap())
-        .rust_target(bindgen::RustTarget::Stable_1_25)
         .allowlist_type("^[vV].*")
         .allowlist_var("^[vV].*")
         .allowlist_function("^[vV].*")
