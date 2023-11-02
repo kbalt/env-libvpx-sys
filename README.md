@@ -4,6 +4,10 @@
 ![build](https://github.com/astraw/env-libvpx-sys/workflows/Build%20and%20Run/badge.svg)
 [![Documentation](https://docs.rs/env-libvpx-sys/badge.svg)](https://docs.rs/env-libvpx-sys/)
 
+⚠⚠ This repository is now archived. I no longer use it and cannot maintain it.
+Please fork it and use it yourself. If your are interested in taking ownership
+of the project please contact me ([@astraw](https://github.com/astraw)). ⚠⚠
+
 Rust bindings to libvpx.
 
 ## Features and characteristics
