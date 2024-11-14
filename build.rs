@@ -1,4 +1,4 @@
-use std::env;
+use std::env::{self, var};
 use std::path::Path;
 
 pub fn main() {
@@ -7,6 +7,7 @@ pub fn main() {
     println!("cargo:rerun-if-env-changed=VPX_INCLUDE_DIR");
     println!("cargo:rerun-if-env-changed=VPX_STATIC");
     println!("cargo:rerun-if-env-changed=VPX_DYNAMIC");
+    println!("cargo:rerun-if-env-changed=VPX_ALREADY_LINKED");
 
     let requested_version = env::var("VPX_VERSION").ok();
 
@@ -23,19 +24,28 @@ pub fn main() {
     #[allow(unused_variables)]
     let (found_version, include_paths) = match env::var_os("VPX_LIB_DIR") {
         None => {
-            // use VPX config from pkg-config
-            let lib = pkg_config::probe_library("vpx").unwrap();
+            if var("VPX_ALREADY_LINKED").is_ok() {
+                (
+                    requested_version
+                        .expect("VPX_VERSION must be set if VPX_ALREADY_LINKED is set"),
+                    vec![],
+                )
+            } else {
+                // use VPX config from pkg-config
+                let lib = pkg_config::probe_library("vpx").unwrap();
 
-            if let Some(v) = requested_version {
-                if lib.version != v {
-                    panic!(
-                        "version mismatch. pkg-config returns version {}, but VPX_VERSION \
+                if let Some(v) = requested_version {
+                    if lib.version != v {
+                        panic!(
+                            "version mismatch. pkg-config returns version {}, but VPX_VERSION \
                     environment variable is {}.",
-                        lib.version, v
-                    );
+                            lib.version, v
+                        );
+                    }
                 }
+
+                (lib.version, lib.include_paths)
             }
-            (lib.version, lib.include_paths)
         }
         Some(vpx_libdir) => {
             // use VPX config from environment variable
